@@ -221,6 +221,7 @@ class FCSParser(object):
 
         if raw_text[-1] != delimiter:
             raw_text = raw_text.strip()
+            raw_text = raw_text.rstrip('\x00')
             if raw_text[-1] != delimiter:
                 msg = (u'The first two characters were:\n {}. The last two characters were: {}\n'
                        u'Parser expects the same delimiter character in beginning '
@@ -555,4 +556,4 @@ def parse(path, meta_data_only=False, compensate=False, channel_naming='$PnS',
     else:  # Then include both meta and dataframe.
         df = fcs_parser.dataframe
         df = df.astype(dtype) if dtype else df
-        return meta, df
+    return meta, df
